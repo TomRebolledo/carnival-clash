@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carnival Clash</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="cards.js" defer></script>
+  <script src="game.js" defer></script>
+</head>
+<body>
+  <main class="game-container">
+    <header>
+      <h1>🎪 Carnival Clash</h1>
+      <p>Digital Board Game Prototype</p>
+    </header>
+
+    <section class="game-layout">
+      <div id="board" class="board"></div>
+
+      <aside class="game-panel">
+        <h2>Game Controls</h2>
+
+        <label for="player-count">Players:</label>
+        <select id="player-count">
+          <option value="2">2 Players</option>
+          <option value="3">3 Players</option>
+          <option value="4">4 Players</option>
+        </select>
+
+        <button id="start-button">Start Game</button>
+
+        <div id="round-display">
+          Round: Not started
+        </div>
+
+        <div id="game-status" aria-live="polite">
+          Choose the number of players and start!
+        </div>
+
+        <div id="dice-display">🎲</div>
+
+        <button id="roll-button" disabled>
+          Roll to Move
+        </button>
+
+        <div id="action-panel" aria-live="polite"></div>
+
+        <h3>Scoreboard</h3>
+        <div id="scoreboard"></div>
+      </aside>
+    </section>
+  </main>
+</body>
+</html>
+

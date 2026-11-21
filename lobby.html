@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Carnival Clash | Multiplayer Lobby</title>
+  <link rel="stylesheet" href="lobby.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+  <script src="supabase-config.js" defer></script>
+  <script src="lobby.js" defer></script>
+</head>
+<body>
+  <main class="shell">
+    <header><h1>🎪 Carnival Clash</h1><p>Online multiplayer lobby</p></header>
+    <section id="setup" class="card">
+      <h2>Play with your team</h2>
+      <label for="player-name">Your player name</label>
+      <input id="player-name" maxlength="24" placeholder="Enter your name" autocomplete="nickname">
+      <div class="choices">
+        <button id="create-room">Create Room</button>
+        <span class="or">or</span>
+        <label for="room-code">Join an existing room</label>
+        <input id="room-code" maxlength="6" placeholder="ABCD12" autocapitalize="characters" spellcheck="false">
+        <button id="join-room" class="secondary">Join Room</button>
+      </div>
+      <p class="hint">Invitation links fill in the room code automatically. Enter your name and select Join Room.</p>
+    </section>
+    <section id="lobby" class="card" hidden>
+      <div class="lobby-heading"><h2>Waiting Room</h2><span id="room-status" class="pill">Waiting</span></div>
+      <p class="hint">Room code</p><div class="room-code" id="display-code">------</div>
+      <div class="share"><button id="copy-code" class="secondary">Copy Code</button><button id="copy-link" class="secondary">Copy Invite Link</button></div>
+      <h3>Players <span id="player-count">0 / 4</span></h3>
+      <ul id="players-list"></ul>
+      <p id="host-message" class="hint"></p>
+      <button id="start-game" hidden>Start Game</button>
+      <p id="started-message" class="success" hidden>🎉 Game started! The multiplayer board is coming in the next stage.</p>
+      <button id="leave-view" class="text-button">Back to home screen</button>
+    </section>
+    <p id="message" role="status" aria-live="polite"></p>
+    <footer><a href="index.html">Open local board prototype</a></footer>
+  </main>
+</body>
+</html>
