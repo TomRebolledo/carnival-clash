@@ -119,6 +119,7 @@ async function refreshLobby() {
     if (!waiting) {
       clearInterval(refreshTimer);
       refreshTimer = null;
+      location.href = `board.html?room=${encodeURIComponent(roomCode)}`;
     }
   } catch (err) {
     console.error(err);
