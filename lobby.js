@@ -3,6 +3,20 @@
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const initialCode = (params.get("room") || "").trim().toUpperCase();
+let selectedMode = "join";
+function selectMode(mode) {
+  selectedMode = mode;
+  $("join-panel").hidden = mode !== "join";
+  $("create-panel").hidden = mode !== "create";
+  for (const key of ["join", "create"]) {
+    const btn = $("choose-" + key);
+    btn.classList.toggle("selected", key === mode);
+    btn.setAttribute("aria-pressed", String(key === mode));
+  }
+  message("");
+}
+$("choose-join").addEventListener("click", () => selectMode("join"));
+$("choose-create").addEventListener("click", () => selectMode("create"));
 $("room-code").value = initialCode;
 $("room-code").addEventListener("input", (e) => {
   e.target.value = e.target.value.replace(/[^a-z0-9]/gi, "").toUpperCase().slice(0, 6);
@@ -62,12 +76,16 @@ async function perform(action) {
   }
 }
 async function createRoom() {
+  if (selectedMode !== "create") return;
+  try { getName(); } catch (err) { message(err.message); return; }
+  if (!window.confirm("Create a NEW Carnival Clash room? Choose Cancel if you meant to join an existing game.")) return;
   await perform(async () => {
     const code = await rpc("create_carnival_room", { p_name: getName() });
     await enterLobby(code);
   });
 }
 async function joinRoom() {
+  if (selectedMode !== "join") return;
   await perform(async () => {
     const name = getName();
     const code = $("room-code").value.trim().toUpperCase();
@@ -81,6 +99,7 @@ async function enterLobby(code) {
   $("setup").hidden = true;
   $("lobby").hidden = false;
   $("display-code").textContent = code;
+  $("board-link").href = `board.html?room=${encodeURIComponent(code)}`;
   const url = new URL(location.href);
   url.searchParams.set("room", code);
   history.replaceState({}, "", url);
@@ -116,10 +135,10 @@ async function refreshLobby() {
           : "Waiting for the host to start the game…")
       : "The host has started this room.";
     $("started-message").hidden = waiting;
+    $("board-link").hidden = waiting;
     if (!waiting) {
       clearInterval(refreshTimer);
       refreshTimer = null;
-      location.href = `board.html?room=${encodeURIComponent(roomCode)}`;
     }
   } catch (err) {
     console.error(err);
@@ -158,6 +177,7 @@ $("leave-view").addEventListener("click", () => {
   $("lobby").hidden = true;
   $("setup").hidden = false;
   $("room-code").value = "";
+  selectMode("join");
   const url = new URL(location.href);
   url.searchParams.delete("room");
   history.replaceState({}, "", url);
