@@ -1,26 +1,22 @@
-CARNIVAL CLASH - STAGE 4C MULTIPLAYER LOBBY
+CARNIVAL CLASH - STAGE 4E: SHARED BOARD MOVEMENT
 
-1. Keep your existing index.html, style.css, game.js and cards.js unchanged.
-2. Copy lobby.html, lobby.css, lobby.js, supabase-config.js into the same carnival-clash folder.
-3. Edit supabase-config.js to insert your Supabase Project URL and publishable key.
-   Never use a service_role key, secret key, or database password.
-4. Confirm Anonymous Sign-Ins is enabled in Supabase Authentication settings.
-5. Open Terminal in the carnival-clash folder and run:
-       python3 -m http.server 8000
-6. Open http://localhost:8000/lobby.html in your browser.
-7. Create a room with a player name. Open an incognito/private browser window,
-   visit the same URL, and join using the code with a different name.
-8. Verify both names appear. As host, click Start Game.
+This is a movement-only online multiplayer test. The current local game remains separate.
 
-IMPORTANT: Invitation links using localhost only work on your own computer.
-To invite people on other computers, publish these files to a public HTTPS site
-(e.g. GitHub Pages). We will do this before remote team testing.
+1. Back up your existing carnival-clash folder.
+2. In Supabase SQL Editor, run stage4e.sql once.
+3. Copy lobby.html, lobby.js, lobby.css, board.html, board.css, board.js into your existing project.
+4. KEEP your existing configured supabase-config.js. The ZIP includes a placeholder
+   example; do not overwrite your working configured file unless you re-enter the values.
+5. KEEP your existing index.html, style.css, game.js, and cards.js.
+6. Upload the changed/new website files to GitHub and wait for GitHub Pages deployment.
+7. Open lobby.html, create a NEW room, and join from a second browser/device.
+8. Host clicks Start Game. Both browsers should navigate to board.html?room=XXXXXX.
+9. Host clicks Initialize Board. Only the active player can Roll to Move.
+10. Verify that pawn positions and turns update on both screens within ~1.5 seconds.
 
-This stage is ONLY a multiplayer lobby. Starting the game updates the shared
-room status but does not launch synchronized board gameplay yet.
+NOT YET IMPLEMENTED: attractions, cards, scoring, full round limits, winners.
+A new room is required for each test because this version has no game reset.
+Existing rooms that already started cannot accept new players.
 
-The lobby refreshes every 2.5 seconds. There is no leave-seat/remove-player
-feature yet. Use a new room if you need to reset player membership.
-
-Note: Supabase Anonymous Sign-Ins creates authenticated guest users.
-Browser sessions are kept locally by Supabase's client library.
+SECURITY: The website must use only your Supabase publishable/anon key, NEVER
+service-role or secret keys. Server functions validate membership and turns.

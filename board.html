@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carnival Clash | Online Board</title><link rel="stylesheet" href="board.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script src="supabase-config.js" defer></script><script src="board.js" defer></script></head>
+<body><main class="shell"><header><h1>🎪 Carnival Clash</h1><p>Online shared board — movement test</p></header>
+<div class="layout"><section class="board" id="board" aria-label="Carnival board"></section>
+<aside class="panel"><h2>Room <span id="room-code">------</span></h2>
+<p id="status" role="status">Connecting…</p><p id="turn"></p><p id="last-roll"></p>
+<button id="init" hidden>Initialize Board (Host)</button>
+<button id="roll" disabled>Roll to Move</button>
+<h3>Players</h3><ul id="players"></ul><p id="moves"></p>
+<p class="note">Movement test only: attractions, cards, scores, and round limits will be added next. Each roll advances to the next player.</p>
+<a href="lobby.html">Back to lobby</a></aside></div></main></body></html>
