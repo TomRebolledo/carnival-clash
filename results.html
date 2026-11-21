@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Carnival Clash | Playtesting Results</title><link rel="stylesheet" href="results.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
+<script src="supabase-config.js" defer></script><script src="results.js" defer></script></head>
+<body><main class="shell"><header><h1>🎪 Carnival Clash</h1><p>Playtesting Results</p></header>
+<section class="panel"><h2>Room <span id="room-code">------</span></h2><p id="status" role="status">Loading results…</p>
+<div class="metrics"><div><strong id="duration">—</strong><span>Elapsed time</span></div><div><strong id="players-count">—</strong><span>Players</span></div><div><strong id="rounds">—</strong><span>Planned rounds</span></div><div><strong id="target">—</strong><span>5–10 min target</span></div></div>
+<h3>Final ticket scores</h3><div id="scores"></div>
+<h3>Attractions and Challenge Cards</h3><p class="hint">An attempt is counted when a space's action resolves. Success means at least one ticket was awarded. Mystery Cards are shown separately.</p>
+<div class="table-wrap"><table><thead><tr><th>Activity</th><th>Attempts</th><th>Successful</th><th>Tickets awarded</th></tr></thead><tbody id="activities"></tbody></table></div>
+<h3>Ticket changes by player</h3><div id="ticket-changes"></div>
+<h3>Game event history</h3><div id="history"></div>
+<p><a id="back" href="board.html">Back to game board</a> · <a href="lobby.html">Lobby</a></p>
+</section></main></body></html>

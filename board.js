@@ -118,6 +118,7 @@ async function act(fn){
 }
 $("init").addEventListener("click",()=>act(()=>rpc("initialize_carnival_board",{p_code:code})));
 $("roll").addEventListener("click",()=>act(()=>rpc("carnival_game_action",{p_code:code,p_action:"move"})));
+$("results-link").href = `results.html?room=${encodeURIComponent(code)}`;
 drawBoard();
 (async()=>{
   if(!/^[A-Z0-9]{6}$/.test(code)){status("Missing room code. Return to the lobby.");return;}
