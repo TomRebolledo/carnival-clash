@@ -3,12 +3,14 @@
 <title>Carnival Clash | Online Board</title><link rel="stylesheet" href="board.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 <script src="supabase-config.js" defer></script><script src="board.js" defer></script></head>
-<body><main class="shell"><header><h1>🎪 Carnival Clash</h1><p>Online shared board — movement test</p></header>
+<body><main class="shell"><header><h1>🎪 Carnival Clash</h1><p>Online multiplayer game</p></header>
 <div class="layout"><section class="board" id="board" aria-label="Carnival board"></section>
 <aside class="panel"><h2>Room <span id="room-code">------</span></h2>
-<p id="status" role="status">Connecting…</p><p id="turn"></p><p id="last-roll"></p>
+<p id="status" role="status">Connecting…</p><p id="round"></p><p id="turn"></p>
+<p id="event" aria-live="polite"></p>
 <button id="init" hidden>Initialize Board (Host)</button>
 <button id="roll" disabled>Roll to Move</button>
-<h3>Players</h3><ul id="players"></ul><p id="moves"></p>
-<p class="note">Movement test only: attractions, cards, scores, and round limits will be added next. Each roll advances to the next player.</p>
+<div id="actions" aria-live="polite"></div>
+<h3>Scoreboard</h3><ul id="players"></ul>
+<p class="note">Only the current player can move, resolve an attraction, or end their turn. Competitive rolls are generated together by the server.</p>
 <a href="lobby.html">Back to lobby</a></aside></div></main></body></html>
