@@ -1,16 +1,15 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Carnival Clash | Online Board</title><link rel="stylesheet" href="board.css">
+<meta name="theme-color" content="#391c56"><title>Carnival Clash | Online Board</title><link rel="stylesheet" href="board.css">
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js" defer></script>
 <script src="supabase-config.js" defer></script><script src="board.js" defer></script></head>
-<body><main class="shell"><header><h1>🎪 Carnival Clash</h1><p>Online multiplayer game</p></header>
-<div class="layout"><section class="board" id="board" aria-label="Carnival board"></section>
-<aside class="panel"><h2>Room <span id="room-code">------</span></h2>
-<p id="status" role="status">Connecting…</p><p id="round"></p><p id="turn"></p>
-<p id="event" aria-live="polite"></p>
-<button id="init" hidden>Initialize Board (Host)</button>
-<button id="roll" disabled>Roll to Move</button>
-<div id="actions" aria-live="polite"></div>
-<h3>Scoreboard</h3><ul id="players"></ul>
-<p class="note">Only the current player can move, resolve an attraction, or end their turn. Competitive rolls are generated together by the server.</p>
-<p><a id="results-link" href="results.html">📊 View playtesting results</a></p><a href="lobby.html">Back to lobby</a></aside></div></main></body></html>
+<body><main class="shell"><header class="hero"><div class="eyebrow">✦ THE MIDWAY IS OPEN ✦</div><h1>🎪 Carnival Clash</h1><p>Roll the dice. Win the tickets. Rule the midway.</p></header>
+<nav class="top-nav" aria-label="Game navigation"><span class="online-indicator">● ONLINE MULTIPLAYER</span><a id="results-link" href="results.html">📊 Playtest results</a><a href="lobby.html">← Lobby</a></nav>
+<div class="layout"><section class="board-wrap" aria-label="Carnival game board"><div class="board" id="board" aria-label="Carnival board"></div><p class="board-caption">🎟️ Follow the midway clockwise · Land on attractions to earn tickets</p></section>
+<aside class="panel"><div class="room-head"><div><div class="overline">YOUR GAME ROOM</div><h2>Room <span id="room-code">------</span></h2></div><span class="ticket-mark">🎟️</span></div>
+<p id="status" role="status">Connecting…</p><div class="game-meta"><p id="round"></p><p id="turn"></p></div>
+<div class="event-wrap"><div class="overline">LATEST AT THE MIDWAY</div><p id="event" aria-live="polite"></p></div>
+<div class="controls"><button id="init" hidden>Initialize Board (Host)</button><button id="roll" disabled>🎲 Roll to Move</button><div id="actions" aria-live="polite"></div></div>
+<div class="score-head"><h3>🏆 Ticket Standings</h3><span>LIVE</span></div><ul id="players" aria-label="Player scores"></ul>
+<details class="rules"><summary>📖 How to play</summary><div class="rules-body"><p>Take turns rolling one die and moving clockwise. Resolve the attraction or card where you land, then select <strong>End Turn</strong>.</p><p>Earn tickets from successful attractions and challenges. Mystery Cards can add or subtract tickets; scores never fall below zero.</p><p><strong>Game length:</strong> 2 players play 10 rounds each; 3 players play 7; 4 players play 5. Most tickets wins. First-place ties go to a tiebreak roll.</p><p>Only the active player can act. All dice results and scoring are managed by the game server.</p></div></details>
+</aside></div><footer>🎡 CARNIVAL CLASH · ONLINE EDITION</footer></main></body></html>

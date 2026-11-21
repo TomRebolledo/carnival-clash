@@ -86,7 +86,10 @@ function render(s){
   s.players.forEach(p=>{
     const li=document.createElement("li"),dot=document.createElement("span");dot.className="dot";dot.style.backgroundColor=p.color;
     const points=s.ready&&Array.isArray(s.tickets)?s.tickets[p.seat-1]:0;
-    li.append(dot,document.createTextNode(`${p.name}${p.seat===s.my_seat?" (you)":""}: ${points} 🎟️`));$("players").append(li);
+    li.append(dot,document.createTextNode(`${p.name}${p.seat===s.my_seat?" (you)":""}: ${points} 🎟️`));
+    if(s.ready&&s.phase!=="finished"&&p.seat===s.current_seat)li.classList.add("is-active");
+    if(p.seat===s.my_seat)li.classList.add("is-me");
+    $("players").append(li);
   });
   document.querySelectorAll(".pawns").forEach(el=>el.replaceChildren());
   if(s.ready&&Array.isArray(s.positions))s.players.forEach(p=>{
