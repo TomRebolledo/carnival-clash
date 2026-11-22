@@ -96,14 +96,13 @@ function render(s){
     const target=$(`pawns-${s.positions[p.seat-1]}`);if(!target)return;
     const pawn=document.createElement("div");pawn.className="pawn";pawn.style.backgroundColor=p.color;pawn.title=p.name;target.append(pawn);
   });
-  $("init").hidden=!s.is_host||s.ready||s.status!=="playing";
   $("round").textContent=s.ready?`Round ${Math.min(s.round_number,s.max_rounds)} of ${s.max_rounds}`:"";
   const active=s.players.find(p=>p.seat===s.current_seat);
-  $("turn").textContent=s.ready?(s.phase==="finished"?`Winner: ${s.players.find(p=>p.seat===s.winner_seat)?.name||"Unknown"}`:s.phase==="tie"?"Tie for first! Tiebreak required.":`Current turn: ${active?.name||"Unknown"} (${s.phase})`):"Waiting for the host to initialize the board.";
+  $("turn").textContent=s.ready?(s.phase==="finished"?`Winner: ${s.players.find(p=>p.seat===s.winner_seat)?.name||"Unknown"}`:s.phase==="tie"?"Tie for first! Tiebreak required.":`Current turn: ${active?.name||"Unknown"} (${s.phase})`):"Preparing the game board…";
   $("event").textContent=s.ready?(s.last_event||""):"";
   $("roll").disabled=busy||!s.ready||s.status!=="playing"||s.phase!=="move"||s.my_seat!==s.current_seat;
   makeActions(s);
-  status(s.status!=="playing"?"Room has not started.":s.ready?"Game synchronized across players.":"Host: initialize the board to begin.");
+  status(s.status!=="playing"?"Room has not started.":s.ready?"Game synchronized across players.":"Preparing the game board…");
 }
 async function refresh(){
   if(!client||!code||refreshing||busy)return;
@@ -113,13 +112,12 @@ async function refresh(){
   finally{refreshing=false;}
 }
 async function act(fn){
-  if(busy)return;busy=true;$("roll").disabled=true;$("init").disabled=true;
+  if(busy)return;busy=true;$("roll").disabled=true;
   document.querySelectorAll("#actions button").forEach(b=>b.disabled=true);
   try{await fn();busy=false;await refresh();}
   catch(e){console.error(e);status(e.message||"Action failed.");busy=false;await refresh();}
-  finally{$("init").disabled=false;}
+
 }
-$("init").addEventListener("click",()=>act(()=>rpc("initialize_carnival_board",{p_code:code})));
 $("roll").addEventListener("click",()=>act(()=>rpc("carnival_game_action",{p_code:code,p_action:"move"})));
 $("results-link").href = `results.html?room=${encodeURIComponent(code)}`;
 drawBoard();

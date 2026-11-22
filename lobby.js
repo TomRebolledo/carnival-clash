@@ -151,7 +151,7 @@ async function refreshLobby() {
 }
 async function startRoom() {
   await perform(async () => {
-    await rpc("start_carnival_room", { p_code: roomCode });
+    await rpc("start_carnival_game", { p_code: roomCode });
     await refreshLobby();
   });
 }
