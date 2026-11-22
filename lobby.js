@@ -3,7 +3,8 @@
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const initialCode = (params.get("room") || "").trim().toUpperCase();
-let selectedMode = "join";
+let selectedMode = initialCode ? "join" : "create";
+let navigatingToBoard = false;
 function selectMode(mode) {
   selectedMode = mode;
   $("join-panel").hidden = mode !== "join";
@@ -78,7 +79,6 @@ async function perform(action) {
 async function createRoom() {
   if (selectedMode !== "create") return;
   try { getName(); } catch (err) { message(err.message); return; }
-  if (!window.confirm("Create a NEW Carnival Clash room? Choose Cancel if you meant to join an existing game.")) return;
   await perform(async () => {
     const code = await rpc("create_carnival_room", { p_name: getName() });
     await enterLobby(code);
@@ -136,9 +136,11 @@ async function refreshLobby() {
       : "The host has started this room.";
     $("started-message").hidden = waiting;
     $("board-link").hidden = waiting;
-    if (!waiting) {
+    if (!waiting && !navigatingToBoard) {
+      navigatingToBoard = true;
       clearInterval(refreshTimer);
       refreshTimer = null;
+      window.location.assign(`board.html?room=${encodeURIComponent(roomCode)}`);
     }
   } catch (err) {
     console.error(err);
@@ -177,12 +179,13 @@ $("leave-view").addEventListener("click", () => {
   $("lobby").hidden = true;
   $("setup").hidden = false;
   $("room-code").value = "";
-  selectMode("join");
+  selectMode("create");
   const url = new URL(location.href);
   url.searchParams.delete("room");
   history.replaceState({}, "", url);
   message("This returns to the home screen; your room seat remains reserved.");
 });
+selectMode(initialCode ? "join" : "create");
 if (!client) {
   message("Add your Supabase URL and publishable key to supabase-config.js, then refresh.");
 }
